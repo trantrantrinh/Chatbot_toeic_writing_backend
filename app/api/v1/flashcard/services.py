@@ -1,6 +1,4 @@
 from datetime import datetime
-from bson import ObjectId
-from fastapi import HTTPException
 from motor.motor_asyncio import AsyncIOMotorDatabase
 
 class FlashcardService:
