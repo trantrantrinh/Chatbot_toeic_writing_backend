@@ -1,15 +1,10 @@
-from fastapi import APIRouter, Depends
-from .services import FlashcardService
-from .schemas import FlashcardCreate, FlashcardResponse
-from app.database.mongodb import get_db
+from fastapi import APIRouter
+from app.api.v1.flashcard.vocabulary.router import router as vocabulary_router
+from app.api.v1.flashcard.grammar.router import router as grammar_router 
+from app.api.v1.flashcard.studynote.router import router as studynote_router
 
 router = APIRouter()
 
-@router.post("/", response_model=FlashcardResponse)
-async def create_flashcard(
-    flashcard: FlashcardCreate,
-    db = Depends(get_db)
-):
-    user_id = "test_user_id"
-    flashcard_service = FlashcardService(db)
-    return await flashcard_service.create_flashcard(flashcard.dict(), user_id)
+router.include_router(vocabulary_router, prefix="/vocabulary", tags=["vocabulary"])
+router.include_router(grammar_router, prefix="/grammar", tags=["grammar"])
+router.include_router(studynote_router, prefix="/studynote", tags=["studynote"])

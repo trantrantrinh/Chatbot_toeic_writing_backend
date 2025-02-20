@@ -4,7 +4,7 @@ from motor.motor_asyncio import AsyncIOMotorDatabase
 class FlashcardService:
     def __init__(self, db: AsyncIOMotorDatabase):
         self.db = db
-        self.collection = db["flashcards"]
+        self.collection = db["vocabulary"]
 
     async def create_flashcard(self, flashcard_data: dict, user_id: str):
         now = datetime.utcnow()
